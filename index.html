@@ -632,14 +632,14 @@ body.perf-mobile .glass-panel {
     <div id="userAura" class="neural-aura"></div>
 
 
-    <audio id="bootSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
-    <audio id="unlockSound" src="https://assets.mixkit.co/active_storage/sfx/2530/2530-preview.mp3" preload="auto"></audio>
-    <audio id="errorSound" src="https://assets.mixkit.co/active_storage/sfx/2573/2573-preview.mp3" preload="auto"></audio>
+    <audio id="bootSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="metadata"></audio>
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="metadata"></audio>
+    <audio id="unlockSound" src="https://assets.mixkit.co/active_storage/sfx/2530/2530-preview.mp3" preload="metadata"></audio>
+    <audio id="errorSound" src="https://assets.mixkit.co/active_storage/sfx/2573/2573-preview.mp3" preload="metadata"></audio>
     
-    <audio id="natureMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop preload="auto"></audio>
+    <audio id="natureMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop preload="none"></audio>
     <div id="youtubePlayer" style="display:none"></div>
-<script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/iframe_api" async defer></script>
 
 
     <div id="natureLiveLayer" class="fixed inset-0 pointer-events-none z-0 hidden">
@@ -1446,7 +1446,7 @@ function closeImageModal() {
             document.getElementById('os-widget-clock').innerText = time;
         }, 1000);
 
-        window.onload = () => { 
+        function initApp() { 
     const savedT = localStorage.getItem('ghh_title');
     if (savedT) document.getElementById('mainHeading').innerText = savedT;
 
@@ -1461,7 +1461,13 @@ function closeImageModal() {
             debouncedSearch(e.target.value);
         });
     }
-};
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp, { once: true });
+} else {
+    initApp();
+}
 
 
         // --- GESTURE CONTROLS (Swipe to Next/Prev) ---
